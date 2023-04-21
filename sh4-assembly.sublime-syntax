@@ -1,0 +1,41 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/3/syntax.html 
+name: SH4 Assembly
+file_extensions:
+  - .s
+  - .asm
+scope: source.assembly.sh4
+
+contexts:
+  main:
+    - include: comments
+    - include: directives
+    - include: labels
+    - include: instructions
+    - include: registers
+    - include: literals
+
+  comments:
+    - match: ';.*'
+      scope: comment.line.semicolon.assembly.sh4
+
+  directives:
+    - match: '\s*\.(section|global|align)\b'
+      scope: keyword.control.assembly.sh4
+
+  labels:
+    - match: '^\s*\w+\s*:'
+      scope: entity.name.function.label.assembly.sh4
+
+  instructions:
+    - match: '\b(add|addc|addv|and|bf|bf.s|bra|braf|bsr|bsrf|bt|bt.s|clrmac|clrs|clrt|cmp/eq|cmp/ge|cmp/gt|cmp/hi|cmp/hs|cmp/pl|cmp/pz|cmp/str|div0s|div0u|div1|dmuls.l|dmulu.l|dt|exts.b|exts.w|extu.b|extu.w|fabs|fadd|fcmp/eq|fcmp/gt|fcnvds|fcnvsd|fdiv|fldi0|fldi1|flds|float|fmov|fmov.s|fmul|fneg|frchg|fsca|fschg|fsqrt|fsrra|fsts|fsub|ftrc|ftrv|jmp|jsr|ldc|ldc.l|lds|lds.l|mac.l|mac.w|mov|mov.b|mov.l|mov.w|movca.l|movt|muls.l|muls.w|mulu.l|mulu.w|neg|negc|nop|not|or|rte|rts|sets|sett|shad|shal|shar|shld|shll|shll16|shll2|shll8|shlr|shlr16|shlr2|shlr8|sleep|stc|stc.l|sts|sts.l|sub|subc|subv|swap.b|swap.w|tas|trapa|tst|tst|tsts|tstv|xor|xtrct)\b'
+      scope: keyword.control.assembly.sh4
+
+  registers:
+    - match: '\b(r[0-9]|r1[0-5]|sr|gbr|vbr|ssr|spc|sgr|dbr|pr|mach|macl|fpul|fr[0-9]|fr1[0-5]|xf[0-9]|xf1[0-5])\b'
+      scope: variable.language.register.assembly.sh4
+
+  literals:
+    - match: '\b(-?(0x)?[0-9a-fA-F]+|0b[01]+)\b'
+      scope: constant.numeric.integer.assembly.sh4
